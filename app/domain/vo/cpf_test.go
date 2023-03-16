@@ -18,20 +18,20 @@ func TestCPF(t *testing.T) {
 
 	t.Run("validate", func(t *testing.T) {
 		testCases := map[string]struct {
-			want error
-			cpf  string
+			expectedErr error
+			cpf         string
 		}{
 			"invalid length": {
-				want: vo.ErrInvalidLength,
-				cpf:  "1",
+				expectedErr: vo.ErrInvalidLength,
+				cpf:         "1",
 			},
 			// TODO: create more test cases
 		}
 		for desc, tC := range testCases {
 			t.Run(desc, func(t *testing.T) {
 				_, err := vo.NewCPF(tC.cpf)
-				if err != tC.want {
-					t.Errorf("got: %v, want: %v", err, tC.want)
+				if err != tC.expectedErr {
+					t.Errorf("got: %v, expected error: %v", err, tC.expectedErr)
 				}
 			})
 		}
