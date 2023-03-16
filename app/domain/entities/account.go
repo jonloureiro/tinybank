@@ -4,8 +4,8 @@ import (
 	"errors"
 	"time"
 
-	"github.com/jonloureiro/go-challenge/app/domain/vo"
-	"github.com/jonloureiro/go-challenge/extensions/id"
+	"github.com/jonloureiro/tiny-bank/app/domain/vo"
+	"github.com/jonloureiro/tiny-bank/extensions/id"
 )
 
 var (

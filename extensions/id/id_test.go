@@ -3,7 +3,7 @@ package id_test
 import (
 	"testing"
 
-	"github.com/jonloureiro/go-challenge/extensions/id"
+	"github.com/jonloureiro/tiny-bank/extensions/id"
 )
 
 func TestNewID(t *testing.T) {

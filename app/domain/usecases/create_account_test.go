@@ -3,10 +3,10 @@ package usecases_test
 import (
 	"testing"
 
-	"github.com/jonloureiro/go-challenge/app/domain/entities"
-	"github.com/jonloureiro/go-challenge/app/domain/usecases"
-	"github.com/jonloureiro/go-challenge/app/domain/usecases/mocks"
-	"github.com/jonloureiro/go-challenge/app/domain/vo"
+	"github.com/jonloureiro/tiny-bank/app/domain/entities"
+	"github.com/jonloureiro/tiny-bank/app/domain/usecases"
+	"github.com/jonloureiro/tiny-bank/app/domain/usecases/mocks"
+	"github.com/jonloureiro/tiny-bank/app/domain/vo"
 )
 
 const (

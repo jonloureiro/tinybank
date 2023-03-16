@@ -3,7 +3,7 @@ package vo_test
 import (
 	"testing"
 
-	"github.com/jonloureiro/go-challenge/app/domain/vo"
+	"github.com/jonloureiro/tiny-bank/app/domain/vo"
 )
 
 func TestCPF(t *testing.T) {

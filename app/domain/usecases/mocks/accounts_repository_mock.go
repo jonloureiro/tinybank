@@ -3,10 +3,10 @@ package mocks
 import (
 	"errors"
 
-	"github.com/jonloureiro/go-challenge/app/domain/entities"
-	"github.com/jonloureiro/go-challenge/app/domain/usecases"
-	"github.com/jonloureiro/go-challenge/app/domain/vo"
-	"github.com/jonloureiro/go-challenge/extensions/id"
+	"github.com/jonloureiro/tiny-bank/app/domain/entities"
+	"github.com/jonloureiro/tiny-bank/app/domain/usecases"
+	"github.com/jonloureiro/tiny-bank/app/domain/vo"
+	"github.com/jonloureiro/tiny-bank/extensions/id"
 )
 
 const (

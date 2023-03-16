@@ -3,8 +3,8 @@ package entities_test
 import (
 	"testing"
 
-	"github.com/jonloureiro/go-challenge/app/domain/entities"
-	"github.com/jonloureiro/go-challenge/app/domain/vo"
+	"github.com/jonloureiro/tiny-bank/app/domain/entities"
+	"github.com/jonloureiro/tiny-bank/app/domain/vo"
 )
 
 var validCPF, _ = vo.NewCPF("69029890100")

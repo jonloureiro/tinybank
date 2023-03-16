@@ -1,4 +1,4 @@
-module github.com/jonloureiro/go-challenge
+module github.com/jonloureiro/tiny-bank
 
 go 1.20
 
