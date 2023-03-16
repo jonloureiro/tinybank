@@ -6,11 +6,10 @@ import (
 	"github.com/jonloureiro/go-challenge/extensions/id"
 )
 
-func TestNew(t *testing.T) {
-	ID1 := id.New()
-	ID2 := id.New()
-
-	if ID1 == ID2 {
-		t.Errorf("expected ID1 to be different from ID2")
+func TestNewID(t *testing.T) {
+	id1 := id.New()
+	id2 := id.New()
+	if id1 == id2 {
+		t.Errorf("expected id1 to be different from id2")
 	}
 }

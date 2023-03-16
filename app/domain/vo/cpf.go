@@ -11,12 +11,12 @@ type CPF struct {
 }
 
 func NewCPF(data string) (*CPF, error) {
-	c := CPF{data}
-	err := c.validate()
+	cpf := CPF{data}
+	err := cpf.validate()
 	if err != nil {
 		return nil, err
 	}
-	return &c, nil
+	return &cpf, nil
 }
 
 func (c *CPF) validate() error {
