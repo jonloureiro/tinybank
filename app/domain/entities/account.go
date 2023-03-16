@@ -14,30 +14,26 @@ var (
 )
 
 type Account struct {
-	ID        string
+	ID        id.ID
 	Name      string
-	CPF       vo.CPF
+	CPF       *vo.CPF
 	Secret    string
 	CreatedAt time.Time
 }
 
-func NewAccount(name string, cpf string, secret string) (*Account, error) {
-	c, err := vo.NewCPF(cpf)
-	if err != nil {
-		return nil, err
-	}
-	a := Account{
+func NewAccount(name string, cpf *vo.CPF, secret string) (*Account, error) {
+	account := Account{
 		ID:        id.New(),
 		Name:      name,
-		CPF:       *c,
+		CPF:       cpf,
 		Secret:    secret,
 		CreatedAt: time.Now(),
 	}
-	err = a.validate()
+	err := account.validate()
 	if err != nil {
 		return nil, err
 	}
-	return &a, nil
+	return &account, nil
 }
 
 func (a *Account) validate() error {

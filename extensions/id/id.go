@@ -4,7 +4,9 @@ import (
 	"github.com/google/uuid"
 )
 
+type ID string
+
 // New returns a new ID.
-func New() string {
-	return uuid.NewString()
+func New() ID {
+	return ID(uuid.NewString())
 }
