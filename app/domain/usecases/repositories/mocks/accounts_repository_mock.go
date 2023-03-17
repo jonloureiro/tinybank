@@ -17,6 +17,7 @@ const (
 type AccountsRepositoryMock struct {
 	StorageByID  map[id.ID]*entities.Account
 	StorageByCPF map[string]*entities.Account
+	UnknownError bool
 }
 
 func NewAccountsRepositoryMock() *AccountsRepositoryMock {
@@ -26,7 +27,18 @@ func NewAccountsRepositoryMock() *AccountsRepositoryMock {
 	}
 }
 
-func (a *AccountsRepositoryMock) FindAccountByID(id id.ID) (*entities.Account, error) {
+func (a *AccountsRepositoryMock) List() ([]*entities.Account, error) {
+	if a.UnknownError {
+		return nil, errors.New("unknown error")
+	}
+	accounts := make([]*entities.Account, 0)
+	for _, account := range a.StorageByID {
+		accounts = append(accounts, account)
+	}
+	return accounts, nil
+}
+
+func (a *AccountsRepositoryMock) FindByID(id id.ID) (*entities.Account, error) {
 	account, ok := a.StorageByID[id]
 	if !ok {
 		return nil, usecases.ErrAccountNotFound
@@ -34,7 +46,7 @@ func (a *AccountsRepositoryMock) FindAccountByID(id id.ID) (*entities.Account, e
 	return account, nil
 }
 
-func (a *AccountsRepositoryMock) FindAccountByCPF(cpf *vo.CPF) (*entities.Account, error) {
+func (a *AccountsRepositoryMock) FindByCPF(cpf *vo.CPF) (*entities.Account, error) {
 	if cpf.Value() == CPFAlreadyExists {
 		account, _ := entities.NewAccount("Jon", cpf, "123456")
 		return account, nil
@@ -46,7 +58,7 @@ func (a *AccountsRepositoryMock) FindAccountByCPF(cpf *vo.CPF) (*entities.Accoun
 	return account, nil
 }
 
-func (a *AccountsRepositoryMock) CreateAccount(account *entities.Account) error {
+func (a *AccountsRepositoryMock) Create(account *entities.Account) error {
 	if account.CPF.Value() == CPFWithUnknownError {
 		return errors.New("unknown error")
 	}

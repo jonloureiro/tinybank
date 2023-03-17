@@ -21,7 +21,7 @@ func (uC *TinyBankUseCases) CreateAccount(input CreateAccountInput) (*CreateAcco
 	if err != nil {
 		return nil, err
 	}
-	_, err = uC.AccountsRepo.FindAccountByCPF(cpf)
+	_, err = uC.AccountsRepo.FindByCPF(cpf)
 	if err == nil {
 		return nil, ErrAccountAlreadyExists
 	}
@@ -29,7 +29,7 @@ func (uC *TinyBankUseCases) CreateAccount(input CreateAccountInput) (*CreateAcco
 	if err != nil {
 		return nil, err
 	}
-	err = uC.AccountsRepo.CreateAccount(account)
+	err = uC.AccountsRepo.Create(account)
 	if err == ErrAccountAlreadyExists {
 		return nil, err
 	}
