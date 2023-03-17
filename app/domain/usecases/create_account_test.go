@@ -5,18 +5,18 @@ import (
 
 	"github.com/jonloureiro/tiny-bank/app/domain/entities"
 	"github.com/jonloureiro/tiny-bank/app/domain/usecases"
-	"github.com/jonloureiro/tiny-bank/app/domain/usecases/mocks"
+	"github.com/jonloureiro/tiny-bank/app/domain/usecases/repositories/mocks"
 	"github.com/jonloureiro/tiny-bank/app/domain/vo"
 )
 
-const (
-	validName   = "Test"
-	validSecret = "123456"
-	validCPF    = "69029890100"
-	invalidCPF  = "1"
-)
-
 func TestCreateAccount(t *testing.T) {
+	const (
+		validName   = "Test"
+		validSecret = "123456"
+		validCPF    = "69029890100"
+		invalidCPF  = "1"
+	)
+
 	t.Run("create account", func(t *testing.T) {
 		accountsRepo := mocks.NewAccountsRepositoryMock()
 		uC := usecases.TinyBankUseCases{AccountsRepo: accountsRepo}
@@ -29,7 +29,7 @@ func TestCreateAccount(t *testing.T) {
 		if err != nil {
 			t.Errorf("expected no error, got %v", err)
 		}
-		account, err := uC.AccountsRepo.FindAccountByID(output.AccountID)
+		account, err := uC.AccountsRepo.FindByID(output.AccountID)
 		if err != nil {
 			t.Errorf("expected no error, got %v", err)
 		}
