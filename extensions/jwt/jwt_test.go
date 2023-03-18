@@ -17,7 +17,7 @@ const (
 func TestNewToken(t *testing.T) {
 	want := reflect.TypeOf(&jwt.Token{})
 	accountID := id.New()
-	token, err := jwt.New(&jwt.Payload{accountID}, privateKey)
+	token, err := jwt.New(accountID, privateKey)
 	if err != nil {
 		t.Errorf("expected no error, got %v", err)
 	}
@@ -34,7 +34,7 @@ func TestNewToken(t *testing.T) {
 }
 
 func TestParseToken(t *testing.T) {
-	token, err := jwt.New(&jwt.Payload{id.New()}, privateKey)
+	token, err := jwt.New(id.New(), privateKey)
 	if err != nil {
 		t.Errorf("expected no error, got %v", err)
 	}

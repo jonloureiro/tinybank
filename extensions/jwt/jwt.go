@@ -8,10 +8,6 @@ import (
 	"github.com/jonloureiro/tiny-bank/extensions/id"
 )
 
-type Payload struct {
-	AccountId id.ID
-}
-
 type Token struct {
 	AccountId      id.ID
 	Token          string
@@ -25,11 +21,11 @@ const (
 
 var ErrTokenUnknownError = errors.New("token unknown error")
 
-func New(payload *Payload, privateKey string) (*Token, error) {
+func New(AccountId id.ID, privateKey string) (*Token, error) {
 	issuedAt := time.Now()
 	expirationTime := issuedAt.Add(TTL)
 	jwtToken := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
-		"account_id": payload.AccountId,
+		"account_id": AccountId,
 		"exp":        expirationTime.Unix(),
 		"iat":        issuedAt.Unix(),
 	})
@@ -38,7 +34,7 @@ func New(payload *Payload, privateKey string) (*Token, error) {
 		return nil, ErrTokenUnknownError
 	}
 	return &Token{
-		AccountId:      payload.AccountId,
+		AccountId:      AccountId,
 		Token:          token,
 		ExpirationTime: expirationTime,
 		IssuedAt:       issuedAt,
