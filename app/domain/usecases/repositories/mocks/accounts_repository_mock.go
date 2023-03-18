@@ -10,6 +10,7 @@ import (
 )
 
 const (
+	ValidCPF            = "69029890100"
 	CPFAlreadyExists    = "68347578133"
 	CPFWithUnknownError = "70530694190"
 )
