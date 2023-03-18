@@ -5,6 +5,7 @@ import (
 
 	"github.com/jonloureiro/tiny-bank/app/domain/entities"
 	"github.com/jonloureiro/tiny-bank/app/domain/vo"
+	"github.com/jonloureiro/tiny-bank/extensions/jwt"
 )
 
 var validCPF, _ = vo.NewCPF("69029890100")
@@ -52,4 +53,18 @@ func TestNewAccount(t *testing.T) {
 			})
 		}
 	})
+}
+
+func TestAuthenticateAccount(t *testing.T) {
+	privateKey := "s3cr3t"
+	secret := "123456"
+	account, err := entities.NewAccount("Jon", validCPF, secret)
+	if err != nil {
+		t.Errorf("expected no error, got %v", err)
+	}
+	got, _ := account.Authenticate(secret, privateKey)
+	want, _ := jwt.Parse(got.Token, privateKey)
+	if got.Token != want.Token {
+		t.Errorf("expected token %v, got %v", want.Token, got.Token)
+	}
 }

@@ -6,11 +6,13 @@ import (
 
 	"github.com/jonloureiro/tiny-bank/app/domain/vo"
 	"github.com/jonloureiro/tiny-bank/extensions/id"
+	"github.com/jonloureiro/tiny-bank/extensions/jwt"
 )
 
 var (
-	ErrEmptyName   = errors.New("empty name")
-	ErrEmptySecret = errors.New("empty secret")
+	ErrEmptyName          = errors.New("empty name")
+	ErrEmptySecret        = errors.New("empty secret")
+	ErrInvalidCredentials = errors.New("invalid credentials")
 )
 
 type Account struct {
@@ -44,4 +46,12 @@ func (a *Account) validate() error {
 		return ErrEmptySecret
 	}
 	return nil
+}
+
+func (a *Account) Authenticate(secret, privateKey string) (*jwt.Token, error) {
+	if a.Secret != secret {
+		return nil, ErrInvalidCredentials
+	}
+	token, _ := jwt.New(a.ID, privateKey)
+	return token, nil
 }
