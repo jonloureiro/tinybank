@@ -3,10 +3,10 @@ package mocks
 import (
 	"errors"
 
-	"github.com/jonloureiro/tiny-bank/app/domain/entities"
-	"github.com/jonloureiro/tiny-bank/app/domain/usecases"
-	"github.com/jonloureiro/tiny-bank/app/domain/vo"
-	"github.com/jonloureiro/tiny-bank/extensions/id"
+	"github.com/jonloureiro/tiny-bank/legacy/app/entities"
+	"github.com/jonloureiro/tiny-bank/legacy/app/usecases"
+	"github.com/jonloureiro/tiny-bank/legacy/app/vo"
+	"github.com/jonloureiro/tiny-bank/legacy/extensions/id"
 )
 
 const (

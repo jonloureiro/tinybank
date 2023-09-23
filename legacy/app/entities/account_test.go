@@ -3,9 +3,9 @@ package entities_test
 import (
 	"testing"
 
-	"github.com/jonloureiro/tiny-bank/app/domain/entities"
-	"github.com/jonloureiro/tiny-bank/app/domain/vo"
-	"github.com/jonloureiro/tiny-bank/extensions/jwt"
+	"github.com/jonloureiro/tiny-bank/legacy/app/entities"
+	"github.com/jonloureiro/tiny-bank/legacy/app/vo"
+	"github.com/jonloureiro/tiny-bank/legacy/extensions/jwt"
 )
 
 var validCPF, _ = vo.NewCPF("69029890100")

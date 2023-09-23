@@ -3,11 +3,11 @@ package usecases_test
 import (
 	"testing"
 
-	"github.com/jonloureiro/tiny-bank/app/domain/entities"
-	"github.com/jonloureiro/tiny-bank/app/domain/usecases"
-	"github.com/jonloureiro/tiny-bank/app/domain/usecases/repositories/mocks"
-	"github.com/jonloureiro/tiny-bank/app/domain/vo"
-	"github.com/jonloureiro/tiny-bank/extensions/jwt"
+	"github.com/jonloureiro/tiny-bank/legacy/app/entities"
+	"github.com/jonloureiro/tiny-bank/legacy/app/usecases"
+	"github.com/jonloureiro/tiny-bank/legacy/app/usecases/repositories/mocks"
+	"github.com/jonloureiro/tiny-bank/legacy/app/vo"
+	"github.com/jonloureiro/tiny-bank/legacy/extensions/jwt"
 )
 
 func TestAuthenticate(t *testing.T) {

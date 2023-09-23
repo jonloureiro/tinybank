@@ -5,7 +5,7 @@ import (
 	"time"
 
 	"github.com/golang-jwt/jwt/v5"
-	"github.com/jonloureiro/tiny-bank/extensions/id"
+	"github.com/jonloureiro/tiny-bank/legacy/extensions/id"
 )
 
 type Token struct {
@@ -16,14 +16,14 @@ type Token struct {
 }
 
 const (
-	TTL = 15 * time.Minute
+	_ttl = 15 * time.Minute
 )
 
 var ErrTokenUnknownError = errors.New("token unknown error")
 
 func New(AccountId id.ID, privateKey string) (*Token, error) {
 	issuedAt := time.Now()
-	expirationTime := issuedAt.Add(TTL)
+	expirationTime := issuedAt.Add(_ttl)
 	jwtToken := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
 		"account_id": AccountId,
 		"exp":        expirationTime.Unix(),
