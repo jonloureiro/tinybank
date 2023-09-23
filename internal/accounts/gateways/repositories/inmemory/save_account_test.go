@@ -5,7 +5,7 @@ import (
 	"testing"
 
 	"github.com/jonloureiro/tiny-bank/internal/accounts"
-	"github.com/jonloureiro/tiny-bank/internal/accounts/app"
+	"github.com/jonloureiro/tiny-bank/internal/accounts/gateways/repositories/fake"
 	"github.com/jonloureiro/tiny-bank/internal/accounts/gateways/repositories/inmemory"
 	"github.com/jonloureiro/tiny-bank/internal/common"
 	"github.com/stretchr/testify/require"
@@ -22,7 +22,7 @@ func Test_New(t *testing.T) {
 func Test_Save(t *testing.T) {
 	t.Parallel()
 
-	validAccount, _ := app.NewAccount("jonloureiro", "93105949186", "123456")
+	account := fake.Account()
 
 	type args struct {
 		ctx context.Context
@@ -39,7 +39,7 @@ func Test_Save(t *testing.T) {
 			name: "valid account",
 			args: args{
 				ctx: context.Background(),
-				acc: validAccount,
+				acc: account,
 			},
 			setup: func(ctx context.Context) accounts.SaveAccountsRepository {
 				return inmemory.NewAccountsRepositoryInMemory()
@@ -49,11 +49,11 @@ func Test_Save(t *testing.T) {
 			name: "invalid account (cpf)",
 			args: args{
 				ctx: context.Background(),
-				acc: validAccount,
+				acc: account,
 			},
 			setup: func(ctx context.Context) accounts.SaveAccountsRepository {
 				repo := inmemory.NewAccountsRepositoryInMemory()
-				_ = repo.Save(ctx, validAccount)
+				_ = repo.Save(ctx, account)
 				return repo
 			},
 			err: common.ErrConflict,
@@ -61,11 +61,11 @@ func Test_Save(t *testing.T) {
 		{
 			name: "invalid account (id)",
 			args: args{
-				acc: validAccount,
+				acc: account,
 			},
 			setup: func(ctx context.Context) accounts.SaveAccountsRepository {
 				repo := inmemory.NewAccountsRepositoryInMemory()
-				_ = repo.Save(ctx, validAccount)
+				_ = repo.Save(ctx, account)
 				return repo
 			},
 			err: common.ErrConflict,

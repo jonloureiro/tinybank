@@ -1,4 +1,4 @@
-package app
+package domain
 
 import (
 	"fmt"
@@ -15,7 +15,7 @@ const (
 	_initialBalance = 100_00
 )
 
-type _account struct {
+type account struct {
 	id        vos.AccountID
 	name      string
 	cpf       vos.CPF
@@ -25,15 +25,15 @@ type _account struct {
 }
 
 var (
-	_           accounts.Account = _account{}
-	_nilAccount                  = _account{}
+	_           accounts.Account = account{}
+	_nilAccount                  = account{}
 )
 
 func NewAccount(
 	name string,
 	cpf string,
 	secret string,
-) (_account, error) {
+) (account, error) {
 	if len(name) < _nameMinLength {
 		return _nilAccount, fmt.Errorf(
 			"%w:invalid name", common.ErrFailedDependency,
@@ -53,7 +53,7 @@ func NewAccount(
 		return _nilAccount, err
 	}
 
-	return _account{
+	return account{
 		id:        id,
 		name:      name,
 		cpf:       cpfVO,
@@ -63,26 +63,26 @@ func NewAccount(
 	}, nil
 }
 
-func (a _account) ID() string {
+func (a account) ID() string {
 	return a.id.Value()
 }
 
-func (a _account) Name() string {
+func (a account) Name() string {
 	return a.name
 }
 
-func (a _account) CPF() string {
+func (a account) CPF() string {
 	return a.cpf.Value()
 }
 
-func (a _account) Secret() string {
+func (a account) Secret() string {
 	return a.secret
 }
 
-func (a _account) Balance() int {
+func (a account) Balance() int {
 	return a.balance
 }
 
-func (a _account) CreatedAt() time.Time {
+func (a account) CreatedAt() time.Time {
 	return a.createdAt
 }
