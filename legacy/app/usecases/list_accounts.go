@@ -1,6 +1,6 @@
 package usecases
 
-import "github.com/jonloureiro/tiny-bank/app/domain/entities"
+import "github.com/jonloureiro/tiny-bank/legacy/app/entities"
 
 type ListAccountInput struct {
 }

@@ -5,7 +5,7 @@ import (
 	"time"
 
 	"github.com/golang-jwt/jwt/v5"
-	"github.com/jonloureiro/tiny-bank/extensions/id"
+	"github.com/jonloureiro/tiny-bank/legacy/extensions/id"
 )
 
 type Token struct {
