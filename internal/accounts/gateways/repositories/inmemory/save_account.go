@@ -1,4 +1,4 @@
-package repositories
+package inmemory
 
 import (
 	"context"
@@ -8,17 +8,7 @@ import (
 	"github.com/jonloureiro/tiny-bank/internal/accounts"
 )
 
-type accountsRepositoryInMemory struct {
-	storageByCPF map[string]*accounts.Account
-	storageByID  map[string]*accounts.Account
-}
-
-func NewAccountsRepositoryInMemory() *accountsRepositoryInMemory {
-	return &accountsRepositoryInMemory{
-		storageByCPF: make(map[string]*accounts.Account),
-		storageByID:  make(map[string]*accounts.Account),
-	}
-}
+var _ accounts.SaveAccountsRepository = (*accountsRepositoryInMemory)(nil)
 
 func (repo *accountsRepositoryInMemory) Save(
 	ctx context.Context,

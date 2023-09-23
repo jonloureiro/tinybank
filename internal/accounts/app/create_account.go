@@ -1,4 +1,4 @@
-package usecases
+package app
 
 import (
 	"context"
@@ -7,12 +7,14 @@ import (
 )
 
 type AccountsRepository interface {
-	Save(context.Context, accounts.Account) error
+	accounts.SaveAccountsRepository
 }
 
 type CreateAccountUC struct {
 	accRepo AccountsRepository
 }
+
+var _ accounts.CreateAccountUC = CreateAccountUC{}
 
 func NewCreateAccountUC(
 	accRepo AccountsRepository,
@@ -22,29 +24,19 @@ func NewCreateAccountUC(
 	}
 }
 
-type CreateAccountInput struct {
-	Name   string
-	CPF    string
-	Secret string
-}
-
-type CreateAccountOutput struct {
-	AccountID string
-}
-
 func (uc CreateAccountUC) CreateAccount(
 	ctx context.Context,
-	input CreateAccountInput,
-) (CreateAccountOutput, error) {
-	acc, err := accounts.New(
+	input accounts.CreateAccountInput,
+) (accounts.CreateAccountOutput, error) {
+	acc, err := NewAccount(
 		input.Name, input.CPF, input.Secret,
 	)
 	if err != nil {
-		return CreateAccountOutput{}, err
+		return accounts.CreateAccountOutput{}, err
 	}
 
 	if err := uc.accRepo.Save(ctx, acc); err != nil {
-		return CreateAccountOutput{}, err
+		return accounts.CreateAccountOutput{}, err
 	}
 
 	return uc.BuildOutput(acc), nil
@@ -52,8 +44,8 @@ func (uc CreateAccountUC) CreateAccount(
 
 func (CreateAccountUC) BuildOutput(
 	account accounts.Account,
-) CreateAccountOutput {
-	return CreateAccountOutput{
+) accounts.CreateAccountOutput {
+	return accounts.CreateAccountOutput{
 		AccountID: account.ID(),
 	}
 }

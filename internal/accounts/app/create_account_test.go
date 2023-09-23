@@ -1,4 +1,4 @@
-package usecases_test
+package app_test
 
 import (
 	"context"
@@ -6,8 +6,8 @@ import (
 
 	"github.com/jonloureiro/tiny-bank/internal"
 	"github.com/jonloureiro/tiny-bank/internal/accounts"
-	"github.com/jonloureiro/tiny-bank/internal/accounts/gateways/repositories"
-	"github.com/jonloureiro/tiny-bank/internal/accounts/usecases"
+	"github.com/jonloureiro/tiny-bank/internal/accounts/app"
+	"github.com/jonloureiro/tiny-bank/internal/accounts/gateways/repositories/inmemory"
 	"github.com/stretchr/testify/require"
 )
 
@@ -20,28 +20,28 @@ func Test_CreateAccount(t *testing.T) {
 
 	type args struct {
 		ctx   context.Context
-		input usecases.CreateAccountInput
+		input accounts.CreateAccountInput
 	}
 
 	tests := []struct {
 		name  string
 		args  args
-		setup func(context.Context) usecases.CreateAccountUC
+		setup func(context.Context) accounts.CreateAccountUC
 		err   error
 	}{
 		{
 			name: "create account without error",
 			args: args{
 				ctx: context.Background(),
-				input: usecases.CreateAccountInput{
+				input: accounts.CreateAccountInput{
 					Name:   validName,
 					CPF:    validCPF,
 					Secret: validSecret,
 				},
 			},
-			setup: func(ctx context.Context) usecases.CreateAccountUC {
-				return usecases.NewCreateAccountUC(
-					repositories.NewAccountsRepositoryInMemory(),
+			setup: func(ctx context.Context) accounts.CreateAccountUC {
+				return app.NewCreateAccountUC(
+					inmemory.NewAccountsRepositoryInMemory(),
 				)
 			},
 		},
@@ -49,15 +49,15 @@ func Test_CreateAccount(t *testing.T) {
 			name: "create account error when input is invalid",
 			args: args{
 				ctx: context.Background(),
-				input: usecases.CreateAccountInput{
+				input: accounts.CreateAccountInput{
 					Name:   "f",
 					CPF:    "1",
 					Secret: "error",
 				},
 			},
-			setup: func(ctx context.Context) usecases.CreateAccountUC {
-				return usecases.NewCreateAccountUC(
-					repositories.NewAccountsRepositoryInMemory(),
+			setup: func(ctx context.Context) accounts.CreateAccountUC {
+				return app.NewCreateAccountUC(
+					inmemory.NewAccountsRepositoryInMemory(),
 				)
 			},
 			err: internal.ErrFailedDependency,
@@ -66,17 +66,17 @@ func Test_CreateAccount(t *testing.T) {
 			name: "create account error when cpf is already in use",
 			args: args{
 				ctx: context.Background(),
-				input: usecases.CreateAccountInput{
+				input: accounts.CreateAccountInput{
 					Name:   validName,
 					CPF:    validCPF,
 					Secret: validSecret,
 				},
 			},
-			setup: func(ctx context.Context) usecases.CreateAccountUC {
-				repo := repositories.NewAccountsRepositoryInMemory()
-				acc, _ := accounts.New(validName, validCPF, validSecret)
+			setup: func(ctx context.Context) accounts.CreateAccountUC {
+				repo := inmemory.NewAccountsRepositoryInMemory()
+				acc, _ := app.NewAccount(validName, validCPF, validSecret)
 				_ = repo.Save(ctx, acc)
-				return usecases.NewCreateAccountUC(repo)
+				return app.NewCreateAccountUC(repo)
 			},
 			err: internal.ErrConflict,
 		},

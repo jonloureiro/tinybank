@@ -1,4 +1,4 @@
-package repositories_test
+package inmemory_test
 
 import (
 	"context"
@@ -6,15 +6,15 @@ import (
 
 	"github.com/jonloureiro/tiny-bank/internal"
 	"github.com/jonloureiro/tiny-bank/internal/accounts"
-	"github.com/jonloureiro/tiny-bank/internal/accounts/gateways/repositories"
-	"github.com/jonloureiro/tiny-bank/internal/accounts/usecases"
+	"github.com/jonloureiro/tiny-bank/internal/accounts/app"
+	"github.com/jonloureiro/tiny-bank/internal/accounts/gateways/repositories/inmemory"
 	"github.com/stretchr/testify/require"
 )
 
 func Test_New(t *testing.T) {
 	t.Parallel()
 
-	repo := repositories.NewAccountsRepositoryInMemory()
+	repo := inmemory.NewAccountsRepositoryInMemory()
 
 	require.NotNil(t, repo)
 }
@@ -22,7 +22,7 @@ func Test_New(t *testing.T) {
 func Test_Save(t *testing.T) {
 	t.Parallel()
 
-	validAccount, _ := accounts.New("jonloureiro", "93105949186", "123456")
+	validAccount, _ := app.NewAccount("jonloureiro", "93105949186", "123456")
 
 	type args struct {
 		ctx context.Context
@@ -32,7 +32,7 @@ func Test_Save(t *testing.T) {
 	tests := []struct {
 		name  string
 		args  args
-		setup func(context.Context) usecases.AccountsRepository
+		setup func(context.Context) accounts.SaveAccountsRepository
 		err   error
 	}{
 		{
@@ -41,8 +41,8 @@ func Test_Save(t *testing.T) {
 				ctx: context.Background(),
 				acc: validAccount,
 			},
-			setup: func(ctx context.Context) usecases.AccountsRepository {
-				return repositories.NewAccountsRepositoryInMemory()
+			setup: func(ctx context.Context) accounts.SaveAccountsRepository {
+				return inmemory.NewAccountsRepositoryInMemory()
 			},
 		},
 		{
@@ -51,8 +51,8 @@ func Test_Save(t *testing.T) {
 				ctx: context.Background(),
 				acc: validAccount,
 			},
-			setup: func(ctx context.Context) usecases.AccountsRepository {
-				repo := repositories.NewAccountsRepositoryInMemory()
+			setup: func(ctx context.Context) accounts.SaveAccountsRepository {
+				repo := inmemory.NewAccountsRepositoryInMemory()
 				_ = repo.Save(ctx, validAccount)
 				return repo
 			},
@@ -63,8 +63,8 @@ func Test_Save(t *testing.T) {
 			args: args{
 				acc: validAccount,
 			},
-			setup: func(ctx context.Context) usecases.AccountsRepository {
-				repo := repositories.NewAccountsRepositoryInMemory()
+			setup: func(ctx context.Context) accounts.SaveAccountsRepository {
+				repo := inmemory.NewAccountsRepositoryInMemory()
 				_ = repo.Save(ctx, validAccount)
 				return repo
 			},

@@ -1,10 +1,11 @@
-package accounts
+package app
 
 import (
 	"fmt"
 	"time"
 
 	"github.com/jonloureiro/tiny-bank/internal"
+	"github.com/jonloureiro/tiny-bank/internal/accounts"
 	"github.com/jonloureiro/tiny-bank/internal/accounts/vos"
 )
 
@@ -14,7 +15,7 @@ const (
 	_initialBalance = 100_00
 )
 
-type accountEntity struct {
+type _account struct {
 	id        vos.AccountID
 	name      string
 	cpf       vos.CPF
@@ -23,21 +24,24 @@ type accountEntity struct {
 	createdAt time.Time
 }
 
-var NilAccountEntity = accountEntity{}
+var (
+	_           accounts.Account = _account{}
+	_nilAccount                  = _account{}
+)
 
-func New(
+func NewAccount(
 	name string,
 	cpf string,
 	secret string,
-) (accountEntity, error) {
+) (_account, error) {
 	if len(name) < _nameMinLength {
-		return NilAccountEntity, fmt.Errorf(
+		return _nilAccount, fmt.Errorf(
 			"%w:invalid name", internal.ErrFailedDependency,
 		)
 	}
 
 	if len(secret) < _secretMinSize {
-		return NilAccountEntity, fmt.Errorf(
+		return _nilAccount, fmt.Errorf(
 			"%w:invalid secret", internal.ErrFailedDependency,
 		)
 	}
@@ -46,10 +50,10 @@ func New(
 
 	cpfVO, err := vos.NewCPF(cpf)
 	if err != nil {
-		return NilAccountEntity, err
+		return _nilAccount, err
 	}
 
-	return accountEntity{
+	return _account{
 		id:        id,
 		name:      name,
 		cpf:       cpfVO,
@@ -59,26 +63,26 @@ func New(
 	}, nil
 }
 
-func (a accountEntity) ID() string {
+func (a _account) ID() string {
 	return a.id.Value()
 }
 
-func (a accountEntity) Name() string {
+func (a _account) Name() string {
 	return a.name
 }
 
-func (a accountEntity) CPF() string {
+func (a _account) CPF() string {
 	return a.cpf.Value()
 }
 
-func (a accountEntity) Secret() string {
+func (a _account) Secret() string {
 	return a.secret
 }
 
-func (a accountEntity) Balance() int {
+func (a _account) Balance() int {
 	return a.balance
 }
 
-func (a accountEntity) CreatedAt() time.Time {
+func (a _account) CreatedAt() time.Time {
 	return a.createdAt
 }

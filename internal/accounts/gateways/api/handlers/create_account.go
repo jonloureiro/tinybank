@@ -1,24 +1,16 @@
 package handlers
 
 import (
-	"context"
 	"errors"
 	"net/http"
 
 	"github.com/jonloureiro/tiny-bank/internal"
+	"github.com/jonloureiro/tiny-bank/internal/accounts"
 	"github.com/jonloureiro/tiny-bank/internal/accounts/gateways/api/schemas"
-	"github.com/jonloureiro/tiny-bank/internal/accounts/usecases"
 	"github.com/jonloureiro/tiny-bank/pkg/rest"
 )
 
-type CreateAccountUC interface {
-	CreateAccount(
-		context.Context,
-		usecases.CreateAccountInput,
-	) (usecases.CreateAccountOutput, error)
-}
-
-func CreateAccountHandler(uc CreateAccountUC) http.HandlerFunc {
+func CreateAccountHandler(uc accounts.CreateAccountUC) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		ctx := r.Context()
 
@@ -28,7 +20,7 @@ func CreateAccountHandler(uc CreateAccountUC) http.HandlerFunc {
 			return
 		}
 
-		output, err := uc.CreateAccount(ctx, usecases.CreateAccountInput{
+		output, err := uc.CreateAccount(ctx, accounts.CreateAccountInput{
 			Name:   body.Name,
 			CPF:    body.CPF,
 			Secret: body.Secret,

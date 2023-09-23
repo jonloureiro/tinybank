@@ -3,20 +3,20 @@ package main
 import (
 	"net/http"
 
-	"github.com/jonloureiro/tiny-bank/internal/accounts/gateways/api"
-	"github.com/jonloureiro/tiny-bank/internal/accounts/gateways/repositories"
-	"github.com/jonloureiro/tiny-bank/internal/accounts/usecases"
+	accountsApp "github.com/jonloureiro/tiny-bank/internal/accounts/app"
+	accountsApi "github.com/jonloureiro/tiny-bank/internal/accounts/gateways/api"
+	accountsRepo "github.com/jonloureiro/tiny-bank/internal/accounts/gateways/repositories/inmemory"
 )
 
 func main() {
 	// ------------------------ Repositories
-	accRepo := repositories.NewAccountsRepositoryInMemory()
+	accRepo := accountsRepo.NewAccountsRepositoryInMemory()
 
 	// ------------------------ Usecases
-	createAccountUC := usecases.NewCreateAccountUC(accRepo)
+	createAccountUC := accountsApp.NewCreateAccountUC(accRepo)
 
 	// ------------------------ HTTP
-	httpRoutes := api.NewHttpRoutes(createAccountUC)
+	httpRoutes := accountsApi.NewHttpRoutes(createAccountUC)
 	httpHandler := httpRoutes.Setup()
 
 	if err := http.ListenAndServe(":3000", httpHandler); err != nil {
