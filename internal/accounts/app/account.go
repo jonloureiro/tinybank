@@ -5,7 +5,7 @@ import (
 	"time"
 
 	"github.com/jonloureiro/tiny-bank/internal/accounts"
-	"github.com/jonloureiro/tiny-bank/internal/accounts/vos"
+	"github.com/jonloureiro/tiny-bank/internal/accounts/app/vos"
 	"github.com/jonloureiro/tiny-bank/internal/common"
 )
 
