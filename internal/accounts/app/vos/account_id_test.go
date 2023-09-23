@@ -3,7 +3,7 @@ package vos_test
 import (
 	"testing"
 
-	"github.com/jonloureiro/tiny-bank/internal/accounts/vos"
+	"github.com/jonloureiro/tiny-bank/internal/accounts/app/vos"
 	"github.com/jonloureiro/tiny-bank/internal/common"
 	"github.com/stretchr/testify/assert"
 )
