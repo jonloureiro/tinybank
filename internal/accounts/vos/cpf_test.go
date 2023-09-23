@@ -3,8 +3,8 @@ package vos_test
 import (
 	"testing"
 
-	"github.com/jonloureiro/tiny-bank/internal"
 	"github.com/jonloureiro/tiny-bank/internal/accounts/vos"
+	"github.com/jonloureiro/tiny-bank/internal/common"
 	"github.com/stretchr/testify/require"
 )
 
@@ -35,7 +35,7 @@ func TestNewCPF(t *testing.T) {
 			args: args{
 				cpf: "1",
 			},
-			err: internal.ErrFailedDependency,
+			err: common.ErrFailedDependency,
 		},
 	}
 

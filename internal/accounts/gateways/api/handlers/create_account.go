@@ -4,9 +4,9 @@ import (
 	"errors"
 	"net/http"
 
-	"github.com/jonloureiro/tiny-bank/internal"
 	"github.com/jonloureiro/tiny-bank/internal/accounts"
 	"github.com/jonloureiro/tiny-bank/internal/accounts/gateways/api/schemas"
+	"github.com/jonloureiro/tiny-bank/internal/common"
 	"github.com/jonloureiro/tiny-bank/pkg/rest"
 )
 
@@ -32,11 +32,11 @@ func CreateAccountHandler(uc accounts.CreateAccountUC) http.HandlerFunc {
 				AccountID: output.AccountID,
 			})
 
-		case errors.Is(err, internal.ErrFailedDependency):
+		case errors.Is(err, common.ErrFailedDependency):
 			rest.Status(w, http.StatusUnprocessableEntity)
 			return
 
-		case errors.Is(err, internal.ErrConflict):
+		case errors.Is(err, common.ErrConflict):
 			rest.Status(w, http.StatusConflict)
 			return
 

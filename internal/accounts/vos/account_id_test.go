@@ -3,8 +3,8 @@ package vos_test
 import (
 	"testing"
 
-	"github.com/jonloureiro/tiny-bank/internal"
 	"github.com/jonloureiro/tiny-bank/internal/accounts/vos"
+	"github.com/jonloureiro/tiny-bank/internal/common"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -35,7 +35,7 @@ func TestParseAccountID(t *testing.T) {
 			args: args{
 				s: "1",
 			},
-			err: internal.ErrFailedDependency,
+			err: common.ErrFailedDependency,
 		},
 	}
 

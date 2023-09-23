@@ -3,7 +3,7 @@ package vos
 import (
 	"fmt"
 
-	"github.com/jonloureiro/tiny-bank/internal"
+	"github.com/jonloureiro/tiny-bank/internal/common"
 	"github.com/jonloureiro/tiny-bank/pkg/stringid"
 )
 
@@ -21,7 +21,7 @@ func ParseAccountID(s string) (AccountID, error) {
 	id, err := stringid.FromString(s)
 	if err != nil {
 		return nilAccountID, fmt.Errorf(
-			"%w:%w", internal.ErrFailedDependency, err,
+			"%w:%w", common.ErrFailedDependency, err,
 		)
 	}
 

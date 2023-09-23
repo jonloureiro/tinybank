@@ -3,7 +3,7 @@ package vos
 import (
 	"fmt"
 
-	"github.com/jonloureiro/tiny-bank/internal"
+	"github.com/jonloureiro/tiny-bank/internal/common"
 )
 
 type CPF struct {
@@ -24,7 +24,7 @@ func NewCPF(data string) (CPF, error) {
 
 func (c CPF) validate() error {
 	if len(c.value) != 11 {
-		return fmt.Errorf("%w:incompatible length", internal.ErrFailedDependency)
+		return fmt.Errorf("%w:incompatible length", common.ErrFailedDependency)
 	}
 	// TODO: to implement
 	return nil

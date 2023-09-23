@@ -4,10 +4,10 @@ import (
 	"context"
 	"testing"
 
-	"github.com/jonloureiro/tiny-bank/internal"
 	"github.com/jonloureiro/tiny-bank/internal/accounts"
 	"github.com/jonloureiro/tiny-bank/internal/accounts/app"
 	"github.com/jonloureiro/tiny-bank/internal/accounts/gateways/repositories/inmemory"
+	"github.com/jonloureiro/tiny-bank/internal/common"
 	"github.com/stretchr/testify/require"
 )
 
@@ -56,7 +56,7 @@ func Test_Save(t *testing.T) {
 				_ = repo.Save(ctx, validAccount)
 				return repo
 			},
-			err: internal.ErrConflict,
+			err: common.ErrConflict,
 		},
 		{
 			name: "invalid account (id)",
@@ -68,7 +68,7 @@ func Test_Save(t *testing.T) {
 				_ = repo.Save(ctx, validAccount)
 				return repo
 			},
-			err: internal.ErrConflict,
+			err: common.ErrConflict,
 		},
 	}
 

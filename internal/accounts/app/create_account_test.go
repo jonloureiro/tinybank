@@ -4,10 +4,10 @@ import (
 	"context"
 	"testing"
 
-	"github.com/jonloureiro/tiny-bank/internal"
 	"github.com/jonloureiro/tiny-bank/internal/accounts"
 	"github.com/jonloureiro/tiny-bank/internal/accounts/app"
 	"github.com/jonloureiro/tiny-bank/internal/accounts/gateways/repositories/inmemory"
+	"github.com/jonloureiro/tiny-bank/internal/common"
 	"github.com/stretchr/testify/require"
 )
 
@@ -60,7 +60,7 @@ func Test_CreateAccount(t *testing.T) {
 					inmemory.NewAccountsRepositoryInMemory(),
 				)
 			},
-			err: internal.ErrFailedDependency,
+			err: common.ErrFailedDependency,
 		},
 		{
 			name: "create account error when cpf is already in use",
@@ -78,7 +78,7 @@ func Test_CreateAccount(t *testing.T) {
 				_ = repo.Save(ctx, acc)
 				return app.NewCreateAccountUC(repo)
 			},
-			err: internal.ErrConflict,
+			err: common.ErrConflict,
 		},
 	}
 

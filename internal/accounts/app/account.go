@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/jonloureiro/tiny-bank/internal"
 	"github.com/jonloureiro/tiny-bank/internal/accounts"
 	"github.com/jonloureiro/tiny-bank/internal/accounts/vos"
+	"github.com/jonloureiro/tiny-bank/internal/common"
 )
 
 const (
@@ -36,13 +36,13 @@ func NewAccount(
 ) (_account, error) {
 	if len(name) < _nameMinLength {
 		return _nilAccount, fmt.Errorf(
-			"%w:invalid name", internal.ErrFailedDependency,
+			"%w:invalid name", common.ErrFailedDependency,
 		)
 	}
 
 	if len(secret) < _secretMinSize {
 		return _nilAccount, fmt.Errorf(
-			"%w:invalid secret", internal.ErrFailedDependency,
+			"%w:invalid secret", common.ErrFailedDependency,
 		)
 	}
 
