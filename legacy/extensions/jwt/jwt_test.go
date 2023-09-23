@@ -5,8 +5,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/jonloureiro/tiny-bank/extensions/id"
-	"github.com/jonloureiro/tiny-bank/extensions/jwt"
+	"github.com/jonloureiro/tiny-bank/legacy/extensions/id"
+	"github.com/jonloureiro/tiny-bank/legacy/extensions/jwt"
 )
 
 const (
