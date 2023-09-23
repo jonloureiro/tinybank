@@ -16,14 +16,14 @@ type Token struct {
 }
 
 const (
-	_ttl = 15 * time.Minute
+	TTL = 15 * time.Minute
 )
 
 var ErrTokenUnknownError = errors.New("token unknown error")
 
 func New(AccountId id.ID, privateKey string) (*Token, error) {
 	issuedAt := time.Now()
-	expirationTime := issuedAt.Add(_ttl)
+	expirationTime := issuedAt.Add(TTL)
 	jwtToken := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
 		"account_id": AccountId,
 		"exp":        expirationTime.Unix(),
