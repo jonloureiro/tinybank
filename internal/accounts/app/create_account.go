@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"github.com/jonloureiro/tiny-bank/internal/accounts"
+	"github.com/jonloureiro/tiny-bank/internal/accounts/app/domain"
 )
 
 type AccountsRepository interface {
@@ -28,7 +29,7 @@ func (uc CreateAccountUC) CreateAccount(
 	ctx context.Context,
 	input accounts.CreateAccountInput,
 ) (accounts.CreateAccountOutput, error) {
-	acc, err := NewAccount(
+	acc, err := domain.NewAccount(
 		input.Name, input.CPF, input.Secret,
 	)
 	if err != nil {

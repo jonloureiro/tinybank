@@ -6,6 +6,7 @@ import (
 
 	"github.com/jonloureiro/tiny-bank/internal/accounts"
 	"github.com/jonloureiro/tiny-bank/internal/accounts/app"
+	"github.com/jonloureiro/tiny-bank/internal/accounts/app/domain"
 	"github.com/jonloureiro/tiny-bank/internal/accounts/gateways/repositories/inmemory"
 	"github.com/jonloureiro/tiny-bank/internal/common"
 	"github.com/stretchr/testify/require"
@@ -74,7 +75,7 @@ func Test_CreateAccount(t *testing.T) {
 			},
 			setup: func(ctx context.Context) accounts.CreateAccountUC {
 				repo := inmemory.NewAccountsRepositoryInMemory()
-				acc, _ := app.NewAccount(validName, validCPF, validSecret)
+				acc, _ := domain.NewAccount(validName, validCPF, validSecret)
 				_ = repo.Save(ctx, acc)
 				return app.NewCreateAccountUC(repo)
 			},
