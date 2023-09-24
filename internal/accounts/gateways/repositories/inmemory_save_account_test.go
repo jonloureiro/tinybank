@@ -1,12 +1,12 @@
-package inmemory_test
+package repositories_test
 
 import (
 	"context"
 	"testing"
 
 	"github.com/jonloureiro/tiny-bank/internal/accounts"
-	"github.com/jonloureiro/tiny-bank/internal/accounts/gateways/repositories/fake"
-	"github.com/jonloureiro/tiny-bank/internal/accounts/gateways/repositories/inmemory"
+	"github.com/jonloureiro/tiny-bank/internal/accounts/gateways/repositories"
+	"github.com/jonloureiro/tiny-bank/internal/accounts/gateways/repositories/test"
 	"github.com/jonloureiro/tiny-bank/internal/common"
 	"github.com/stretchr/testify/require"
 )
@@ -14,7 +14,7 @@ import (
 func Test_New(t *testing.T) {
 	t.Parallel()
 
-	repo := inmemory.NewAccountsRepositoryInMemory()
+	repo := repositories.NewRepositoryInMemory()
 
 	require.NotNil(t, repo)
 }
@@ -22,7 +22,7 @@ func Test_New(t *testing.T) {
 func Test_Save(t *testing.T) {
 	t.Parallel()
 
-	account := fake.Account()
+	account := test.Account()
 
 	type args struct {
 		ctx context.Context
@@ -42,7 +42,7 @@ func Test_Save(t *testing.T) {
 				acc: account,
 			},
 			setup: func(ctx context.Context) accounts.SaveAccountsRepository {
-				return inmemory.NewAccountsRepositoryInMemory()
+				return repositories.NewRepositoryInMemory()
 			},
 		},
 		{
@@ -52,7 +52,7 @@ func Test_Save(t *testing.T) {
 				acc: account,
 			},
 			setup: func(ctx context.Context) accounts.SaveAccountsRepository {
-				repo := inmemory.NewAccountsRepositoryInMemory()
+				repo := repositories.NewRepositoryInMemory()
 				_ = repo.Save(ctx, account)
 				return repo
 			},
@@ -64,7 +64,7 @@ func Test_Save(t *testing.T) {
 				acc: account,
 			},
 			setup: func(ctx context.Context) accounts.SaveAccountsRepository {
-				repo := inmemory.NewAccountsRepositoryInMemory()
+				repo := repositories.NewRepositoryInMemory()
 				_ = repo.Save(ctx, account)
 				return repo
 			},

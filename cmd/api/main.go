@@ -4,22 +4,23 @@ import (
 	"net/http"
 
 	accountsApp "github.com/jonloureiro/tiny-bank/internal/accounts/app"
-	accountsApi "github.com/jonloureiro/tiny-bank/internal/accounts/gateways/api"
-	accountsRepo "github.com/jonloureiro/tiny-bank/internal/accounts/gateways/repositories/inmemory"
+	accountsHTTPHandlers "github.com/jonloureiro/tiny-bank/internal/accounts/gateways/handlers"
+	accountsPresenters "github.com/jonloureiro/tiny-bank/internal/accounts/gateways/presenters"
+	accountsRepositories "github.com/jonloureiro/tiny-bank/internal/accounts/gateways/repositories"
 )
 
 func main() {
-	// ------------------------ Repositories
-	accRepo := accountsRepo.NewAccountsRepositoryInMemory()
+	var (
+		accountsRepositoryInMemory = accountsRepositories.NewRepositoryInMemory()
+		createAccountUsecase       = accountsApp.NewCreateAccountUsecase(accountsRepositoryInMemory)
+		createAccountJsonPresenter = accountsPresenters.NewJsonPresenter()
+	)
 
-	// ------------------------ Usecases
-	createAccountUC := accountsApp.NewCreateAccountUC(accRepo)
-
-	// ------------------------ HTTP
-	httpRoutes := accountsApi.NewHttpRoutes(createAccountUC)
-	httpHandler := httpRoutes.Setup()
-
-	if err := http.ListenAndServe(":3000", httpHandler); err != nil {
+	accountsHandlers := accountsHTTPHandlers.New(
+		createAccountUsecase,
+		createAccountJsonPresenter,
+	)
+	if err := http.ListenAndServe(":3000", accountsHandlers.Setup()); err != nil {
 		panic(err)
 	}
 }
