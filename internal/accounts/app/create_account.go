@@ -11,21 +11,21 @@ type AccountsRepository interface {
 	accounts.SaveAccountsRepository
 }
 
-type CreateAccountUC struct {
+type CreateAccountUsecase struct {
 	accRepo AccountsRepository
 }
 
-var _ accounts.CreateAccountUC = CreateAccountUC{}
+var _ accounts.CreateAccountUsecase = CreateAccountUsecase{}
 
-func NewCreateAccountUC(
+func NewCreateAccountUsecase(
 	accRepo AccountsRepository,
-) CreateAccountUC {
-	return CreateAccountUC{
+) CreateAccountUsecase {
+	return CreateAccountUsecase{
 		accRepo: accRepo,
 	}
 }
 
-func (uc CreateAccountUC) CreateAccount(
+func (uc CreateAccountUsecase) Execute(
 	ctx context.Context,
 	input accounts.CreateAccountInput,
 ) (accounts.CreateAccountOutput, error) {
@@ -43,7 +43,7 @@ func (uc CreateAccountUC) CreateAccount(
 	return uc.BuildOutput(acc), nil
 }
 
-func (CreateAccountUC) BuildOutput(
+func (CreateAccountUsecase) BuildOutput(
 	account accounts.Account,
 ) accounts.CreateAccountOutput {
 	return accounts.CreateAccountOutput{

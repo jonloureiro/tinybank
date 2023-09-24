@@ -1,6 +1,13 @@
 package accounts
 
-import "context"
+import (
+	"context"
+	"net/http"
+)
+
+type SaveAccountsRepository interface {
+	Save(context.Context, Account) error
+}
 
 type CreateAccountInput struct {
 	Name   string
@@ -12,9 +19,13 @@ type CreateAccountOutput struct {
 	AccountID string
 }
 
-type CreateAccountUC interface {
-	CreateAccount(
+type CreateAccountUsecase interface {
+	Execute(
 		context.Context,
 		CreateAccountInput,
 	) (CreateAccountOutput, error)
+}
+
+type CreateAccountPresenter interface {
+	Render(http.ResponseWriter, CreateAccountOutput) error
 }

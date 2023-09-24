@@ -1,4 +1,4 @@
-package inmemory
+package repositories
 
 import "github.com/jonloureiro/tiny-bank/internal/accounts"
 
@@ -7,7 +7,7 @@ type accountsRepositoryInMemory struct {
 	storageByID  map[string]*accounts.Account
 }
 
-func NewAccountsRepositoryInMemory() *accountsRepositoryInMemory {
+func NewRepositoryInMemory() *accountsRepositoryInMemory {
 	return &accountsRepositoryInMemory{
 		storageByCPF: make(map[string]*accounts.Account),
 		storageByID:  make(map[string]*accounts.Account),

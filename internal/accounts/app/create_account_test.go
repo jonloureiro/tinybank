@@ -7,7 +7,7 @@ import (
 	"github.com/jonloureiro/tiny-bank/internal/accounts"
 	"github.com/jonloureiro/tiny-bank/internal/accounts/app"
 	"github.com/jonloureiro/tiny-bank/internal/accounts/app/domain"
-	"github.com/jonloureiro/tiny-bank/internal/accounts/gateways/repositories/inmemory"
+	"github.com/jonloureiro/tiny-bank/internal/accounts/gateways/repositories"
 	"github.com/jonloureiro/tiny-bank/internal/common"
 	"github.com/stretchr/testify/require"
 )
@@ -27,7 +27,7 @@ func Test_CreateAccount(t *testing.T) {
 	tests := []struct {
 		name  string
 		args  args
-		setup func(context.Context) accounts.CreateAccountUC
+		setup func(context.Context) accounts.CreateAccountUsecase
 		err   error
 	}{
 		{
@@ -40,9 +40,9 @@ func Test_CreateAccount(t *testing.T) {
 					Secret: validSecret,
 				},
 			},
-			setup: func(ctx context.Context) accounts.CreateAccountUC {
-				return app.NewCreateAccountUC(
-					inmemory.NewAccountsRepositoryInMemory(),
+			setup: func(ctx context.Context) accounts.CreateAccountUsecase {
+				return app.NewCreateAccountUsecase(
+					repositories.NewRepositoryInMemory(),
 				)
 			},
 		},
@@ -56,9 +56,9 @@ func Test_CreateAccount(t *testing.T) {
 					Secret: "error",
 				},
 			},
-			setup: func(ctx context.Context) accounts.CreateAccountUC {
-				return app.NewCreateAccountUC(
-					inmemory.NewAccountsRepositoryInMemory(),
+			setup: func(ctx context.Context) accounts.CreateAccountUsecase {
+				return app.NewCreateAccountUsecase(
+					repositories.NewRepositoryInMemory(),
 				)
 			},
 			err: common.ErrFailedDependency,
@@ -73,11 +73,11 @@ func Test_CreateAccount(t *testing.T) {
 					Secret: validSecret,
 				},
 			},
-			setup: func(ctx context.Context) accounts.CreateAccountUC {
-				repo := inmemory.NewAccountsRepositoryInMemory()
+			setup: func(ctx context.Context) accounts.CreateAccountUsecase {
+				repo := repositories.NewRepositoryInMemory()
 				acc, _ := domain.NewAccount(validName, validCPF, validSecret)
 				_ = repo.Save(ctx, acc)
-				return app.NewCreateAccountUC(repo)
+				return app.NewCreateAccountUsecase(repo)
 			},
 			err: common.ErrConflict,
 		},
@@ -91,7 +91,7 @@ func Test_CreateAccount(t *testing.T) {
 
 			uc := tc.setup(tc.args.ctx)
 
-			got, err := uc.CreateAccount(tc.args.ctx, tc.args.input)
+			got, err := uc.Execute(tc.args.ctx, tc.args.input)
 			if tc.err != nil {
 				require.ErrorIs(t, err, tc.err)
 				return
