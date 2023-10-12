@@ -14,7 +14,7 @@ import (
 func Test_New(t *testing.T) {
 	t.Parallel()
 
-	repo := repositories.NewRepositoryInMemory()
+	repo := repositories.NewAccountsRepositoryInMemory()
 
 	require.NotNil(t, repo)
 }
@@ -22,7 +22,7 @@ func Test_New(t *testing.T) {
 func Test_Save(t *testing.T) {
 	t.Parallel()
 
-	account := test.Account()
+	account := test.Account(1)
 
 	type args struct {
 		ctx context.Context
@@ -32,7 +32,7 @@ func Test_Save(t *testing.T) {
 	tests := []struct {
 		name  string
 		args  args
-		setup func(context.Context) accounts.SaveAccountsRepository
+		setup func(context.Context) accounts.SaveAccountRepository
 		err   error
 	}{
 		{
@@ -41,8 +41,8 @@ func Test_Save(t *testing.T) {
 				ctx: context.Background(),
 				acc: account,
 			},
-			setup: func(ctx context.Context) accounts.SaveAccountsRepository {
-				return repositories.NewRepositoryInMemory()
+			setup: func(ctx context.Context) accounts.SaveAccountRepository {
+				return repositories.NewAccountsRepositoryInMemory()
 			},
 		},
 		{
@@ -51,8 +51,8 @@ func Test_Save(t *testing.T) {
 				ctx: context.Background(),
 				acc: account,
 			},
-			setup: func(ctx context.Context) accounts.SaveAccountsRepository {
-				repo := repositories.NewRepositoryInMemory()
+			setup: func(ctx context.Context) accounts.SaveAccountRepository {
+				repo := repositories.NewAccountsRepositoryInMemory()
 				_ = repo.Save(ctx, account)
 				return repo
 			},
@@ -63,8 +63,8 @@ func Test_Save(t *testing.T) {
 			args: args{
 				acc: account,
 			},
-			setup: func(ctx context.Context) accounts.SaveAccountsRepository {
-				repo := repositories.NewRepositoryInMemory()
+			setup: func(ctx context.Context) accounts.SaveAccountRepository {
+				repo := repositories.NewAccountsRepositoryInMemory()
 				_ = repo.Save(ctx, account)
 				return repo
 			},

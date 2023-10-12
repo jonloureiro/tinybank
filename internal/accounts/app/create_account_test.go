@@ -42,7 +42,7 @@ func Test_CreateAccount(t *testing.T) {
 			},
 			setup: func(ctx context.Context) accounts.CreateAccountUsecase {
 				return app.NewCreateAccountUsecase(
-					repositories.NewRepositoryInMemory(),
+					repositories.NewAccountsRepositoryInMemory(),
 				)
 			},
 		},
@@ -58,7 +58,7 @@ func Test_CreateAccount(t *testing.T) {
 			},
 			setup: func(ctx context.Context) accounts.CreateAccountUsecase {
 				return app.NewCreateAccountUsecase(
-					repositories.NewRepositoryInMemory(),
+					repositories.NewAccountsRepositoryInMemory(),
 				)
 			},
 			err: common.ErrFailedDependency,
@@ -74,7 +74,7 @@ func Test_CreateAccount(t *testing.T) {
 				},
 			},
 			setup: func(ctx context.Context) accounts.CreateAccountUsecase {
-				repo := repositories.NewRepositoryInMemory()
+				repo := repositories.NewAccountsRepositoryInMemory()
 				acc, _ := domain.NewAccount(validName, validCPF, validSecret)
 				_ = repo.Save(ctx, acc)
 				return app.NewCreateAccountUsecase(repo)

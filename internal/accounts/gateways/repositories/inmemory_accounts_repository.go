@@ -7,7 +7,7 @@ type accountsRepositoryInMemory struct {
 	storageByID  map[string]*accounts.Account
 }
 
-func NewRepositoryInMemory() *accountsRepositoryInMemory {
+func NewAccountsRepositoryInMemory() *accountsRepositoryInMemory {
 	return &accountsRepositoryInMemory{
 		storageByCPF: make(map[string]*accounts.Account),
 		storageByID:  make(map[string]*accounts.Account),

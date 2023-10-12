@@ -8,7 +8,7 @@ import (
 	"github.com/jonloureiro/tiny-bank/internal/common"
 )
 
-var _ accounts.SaveAccountsRepository = (*accountsRepositoryInMemory)(nil)
+var _ accounts.SaveAccountRepository = (*accountsRepositoryInMemory)(nil)
 
 func (repo *accountsRepositoryInMemory) Save(
 	ctx context.Context,

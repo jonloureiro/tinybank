@@ -42,7 +42,7 @@ func CreateAccountHandler(
 			}
 
 		case errors.Is(err, common.ErrFailedDependency):
-			w.WriteHeader(http.StatusFailedDependency)
+			w.WriteHeader(http.StatusUnprocessableEntity)
 
 		case errors.Is(err, common.ErrConflict):
 			w.WriteHeader(http.StatusConflict)

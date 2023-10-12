@@ -7,25 +7,25 @@ import (
 	"github.com/jonloureiro/tiny-bank/internal/accounts/app/domain"
 )
 
-type AccountsRepository interface {
-	accounts.SaveAccountsRepository
+type createAccount_AccountsRepository interface {
+	accounts.SaveAccountRepository
 }
 
-type CreateAccountUsecase struct {
-	accRepo AccountsRepository
+type createAccountUsecase struct {
+	accountsRepository createAccount_AccountsRepository
 }
 
-var _ accounts.CreateAccountUsecase = (*CreateAccountUsecase)(nil)
+var _ accounts.CreateAccountUsecase = (*createAccountUsecase)(nil)
 
 func NewCreateAccountUsecase(
-	accRepo AccountsRepository,
-) CreateAccountUsecase {
-	return CreateAccountUsecase{
-		accRepo: accRepo,
+	accountsRepository createAccount_AccountsRepository,
+) createAccountUsecase {
+	return createAccountUsecase{
+		accountsRepository: accountsRepository,
 	}
 }
 
-func (uc CreateAccountUsecase) Execute(
+func (uc createAccountUsecase) Execute(
 	ctx context.Context,
 	input accounts.CreateAccountInput,
 ) (accounts.CreateAccountOutput, error) {
@@ -36,14 +36,14 @@ func (uc CreateAccountUsecase) Execute(
 		return accounts.CreateAccountOutput{}, err
 	}
 
-	if err := uc.accRepo.Save(ctx, acc); err != nil {
+	if err := uc.accountsRepository.Save(ctx, acc); err != nil {
 		return accounts.CreateAccountOutput{}, err
 	}
 
-	return uc.BuildOutput(acc), nil
+	return uc.buildOutput(acc), nil
 }
 
-func (CreateAccountUsecase) BuildOutput(
+func (createAccountUsecase) buildOutput(
 	account accounts.Account,
 ) accounts.CreateAccountOutput {
 	return accounts.CreateAccountOutput{

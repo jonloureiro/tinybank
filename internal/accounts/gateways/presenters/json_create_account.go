@@ -8,18 +8,21 @@ import (
 	"github.com/jonloureiro/tiny-bank/internal/accounts/gateways"
 )
 
-type createAccountTarget struct {
-	AccountID string `json:"id"`
+type createAccountJsonPresenter struct{}
+
+func NewCreateAccountJsonPresenter() createAccountJsonPresenter {
+	return createAccountJsonPresenter{}
 }
 
-var _ gateways.CreateAccountPresenter = (*accountsJsonPresenter)(nil)
+var _ gateways.CreateAccountPresenter = (*createAccountJsonPresenter)(nil)
 
-func (p accountsJsonPresenter) Render(
+func (p createAccountJsonPresenter) Render(
 	w http.ResponseWriter, output accounts.CreateAccountOutput,
 ) error {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusCreated)
-	return json.NewEncoder(w).Encode(createAccountTarget{
+
+	return json.NewEncoder(w).Encode(accountIDSchema{
 		AccountID: output.AccountID,
 	})
 }

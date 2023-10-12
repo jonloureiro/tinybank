@@ -9,3 +9,7 @@ import (
 type CreateAccountPresenter interface {
 	Render(http.ResponseWriter, accounts.CreateAccountOutput) error
 }
+
+type ListAccountsPresenter interface {
+	Render(http.ResponseWriter, accounts.ListAccountsOutput) error
+}

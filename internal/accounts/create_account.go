@@ -4,10 +4,6 @@ import (
 	"context"
 )
 
-type SaveAccountsRepository interface {
-	Save(context.Context, Account) error
-}
-
 type CreateAccountInput struct {
 	Name   string
 	CPF    string
