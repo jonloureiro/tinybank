@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	accountsApp "github.com/jonloureiro/tiny-bank/internal/accounts/app"
-	accountsHTTPHandlers "github.com/jonloureiro/tiny-bank/internal/accounts/gateways/handlers"
+	accountsFrameworks "github.com/jonloureiro/tiny-bank/internal/accounts/gateways/frameworks"
 	accountsPresenters "github.com/jonloureiro/tiny-bank/internal/accounts/gateways/presenters"
 	accountsRepositories "github.com/jonloureiro/tiny-bank/internal/accounts/gateways/repositories"
 )
@@ -16,11 +16,11 @@ func main() {
 		createAccountJsonPresenter = accountsPresenters.NewJsonPresenter()
 	)
 
-	accountsHandlers := accountsHTTPHandlers.New(
-		createAccountUsecase,
-		createAccountJsonPresenter,
-	)
-	if err := http.ListenAndServe(":3000", accountsHandlers.Setup()); err != nil {
+	routes := accountsFrameworks.Routes{
+		CreateAccountUsecase:   createAccountUsecase,
+		CreateAccountPresenter: createAccountJsonPresenter,
+	}
+	if err := http.ListenAndServe(":3000", routes.Setup()); err != nil {
 		panic(err)
 	}
 }

@@ -46,17 +46,17 @@ func NewAccount(
 		)
 	}
 
-	id := vos.NewAccountID()
-
-	cpfVO, err := vos.NewCPF(cpf)
+	_cpf, err := vos.ParseCPF(cpf)
 	if err != nil {
 		return _nilAccount, err
 	}
 
+	id := vos.NewAccountID()
+
 	return account{
 		id:        id,
 		name:      name,
-		cpf:       cpfVO,
+		cpf:       _cpf,
 		secret:    secret,
 		balance:   _initialBalance,
 		createdAt: time.Now(),

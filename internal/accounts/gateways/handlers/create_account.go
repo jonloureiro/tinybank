@@ -6,6 +6,7 @@ import (
 	"net/http"
 
 	"github.com/jonloureiro/tiny-bank/internal/accounts"
+	"github.com/jonloureiro/tiny-bank/internal/accounts/gateways"
 	"github.com/jonloureiro/tiny-bank/internal/common"
 )
 
@@ -15,9 +16,9 @@ type createAccountBody struct {
 	Secret string `json:"secret"`
 }
 
-func createAccountHandler(
+func CreateAccountHandler(
 	uc accounts.CreateAccountUsecase,
-	p accounts.CreateAccountPresenter,
+	p gateways.CreateAccountPresenter,
 ) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		ctx := r.Context()

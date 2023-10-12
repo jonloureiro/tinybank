@@ -2,7 +2,6 @@ package accounts
 
 import (
 	"context"
-	"net/http"
 )
 
 type SaveAccountsRepository interface {
@@ -24,8 +23,4 @@ type CreateAccountUsecase interface {
 		context.Context,
 		CreateAccountInput,
 	) (CreateAccountOutput, error)
-}
-
-type CreateAccountPresenter interface {
-	Render(http.ResponseWriter, CreateAccountOutput) error
 }

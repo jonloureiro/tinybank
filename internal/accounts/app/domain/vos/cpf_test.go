@@ -45,7 +45,7 @@ func TestNewCPF(t *testing.T) {
 		t.Run(tc.name, func(t *testing.T) {
 			t.Parallel()
 
-			got, err := vos.NewCPF(tc.args.cpf)
+			got, err := vos.ParseCPF(tc.args.cpf)
 			if tc.err != nil {
 				require.ErrorIs(t, err, tc.err)
 				return

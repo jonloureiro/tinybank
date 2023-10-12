@@ -12,7 +12,7 @@ type CPF struct {
 
 var nilCPF = CPF{}
 
-func NewCPF(data string) (CPF, error) {
+func ParseCPF(data string) (CPF, error) {
 	c := CPF{data}
 
 	if err := c.validate(); err != nil {

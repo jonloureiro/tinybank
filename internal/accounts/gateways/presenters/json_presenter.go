@@ -1,7 +1,7 @@
 package presenters
 
-type createAccountJsonPresenter struct{}
+type accountsJsonPresenter struct{}
 
-func NewJsonPresenter() createAccountJsonPresenter {
-	return createAccountJsonPresenter{}
+func NewJsonPresenter() accountsJsonPresenter {
+	return accountsJsonPresenter{}
 }

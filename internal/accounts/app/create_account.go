@@ -15,7 +15,7 @@ type CreateAccountUsecase struct {
 	accRepo AccountsRepository
 }
 
-var _ accounts.CreateAccountUsecase = CreateAccountUsecase{}
+var _ accounts.CreateAccountUsecase = (*CreateAccountUsecase)(nil)
 
 func NewCreateAccountUsecase(
 	accRepo AccountsRepository,

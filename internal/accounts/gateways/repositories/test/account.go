@@ -8,7 +8,7 @@ import (
 
 type account struct{}
 
-var _ accounts.Account = account{}
+var _ accounts.Account = (*account)(nil)
 
 func Account() accounts.Account {
 	return account{}
