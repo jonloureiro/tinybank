@@ -13,3 +13,7 @@ type CreateAccountPresenter interface {
 type ListAccountsPresenter interface {
 	Render(http.ResponseWriter, accounts.ListAccountsOutput) error
 }
+
+type GetAccountBalancePresenter interface {
+	Render(http.ResponseWriter, accounts.GetAccountBalanceOutput) error
+}

@@ -1,8 +1,6 @@
 package accounts
 
-import (
-	"context"
-)
+import "context"
 
 type ListAccountsOutput struct {
 	Accounts []Account

@@ -16,6 +16,9 @@ type Routes struct {
 
 	ListAccountsUsecase   accounts.ListAccountsUsecase
 	ListAccountsPresenter gateways.ListAccountsPresenter
+
+	GetAccountBalanceUsecase   accounts.GetAccountBalanceUsecase
+	GetAccountBalancePresenter gateways.GetAccountBalancePresenter
 }
 
 func (r Routes) Setup() http.Handler {
@@ -23,6 +26,7 @@ func (r Routes) Setup() http.Handler {
 
 	routes.Post("/accounts", handlers.CreateAccountHandler(r.CreateAccountUsecase, r.CreateAccountPresenter))
 	routes.Get("/accounts", handlers.ListAccountsHandler(r.ListAccountsUsecase, r.ListAccountsPresenter))
+	routes.Get("/accounts/{account-id}/balance", handlers.GetAccountBalanceHandler(r.GetAccountBalanceUsecase, r.GetAccountBalancePresenter))
 
 	fmt.Println("Setup accounts routes")
 

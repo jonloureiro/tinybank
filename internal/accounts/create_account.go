@@ -1,8 +1,6 @@
 package accounts
 
-import (
-	"context"
-)
+import "context"
 
 type CreateAccountInput struct {
 	Name   string

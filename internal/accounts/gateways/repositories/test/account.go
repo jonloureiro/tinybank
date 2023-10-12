@@ -8,17 +8,27 @@ import (
 )
 
 type account struct {
-	id int
+	id      int
+	uuid    string
+	balance int
 }
 
 var _ accounts.Account = (*account)(nil)
 
-func Account(id int) accounts.Account {
-	return account{id}
+func Account(id int) account {
+	return account{id: id}
 }
 
-func (account) Balance() int {
-	return 0
+func (a *account) SetID(id string) {
+	a.uuid = id
+}
+
+func (a *account) SetBalance(balance int) {
+	a.balance = balance
+}
+
+func (a account) Balance() int {
+	return a.balance
 }
 
 func (a account) CPF() string {
@@ -30,6 +40,9 @@ func (account) CreatedAt() time.Time {
 }
 
 func (a account) ID() string {
+	if a.uuid != "" {
+		return a.uuid
+	}
 	return fmt.Sprintf("fake-account-id-%d", a.id)
 }
 

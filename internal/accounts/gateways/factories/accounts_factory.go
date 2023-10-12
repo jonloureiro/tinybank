@@ -9,5 +9,8 @@ func AccountsFactory() frameworks.Routes {
 
 		ListAccountsUsecase:   _listAccountsUsecase,
 		ListAccountsPresenter: _listAccountsJsonPresenter,
+
+		GetAccountBalanceUsecase:   _getAccountBalance,
+		GetAccountBalancePresenter: _getAccountBalanceJson,
 	}
 }

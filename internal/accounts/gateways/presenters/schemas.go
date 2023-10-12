@@ -13,3 +13,7 @@ type accountSchema struct {
 }
 
 type accountsSchema []accountSchema
+
+type accountBalanceSchema struct {
+	Balance int `json:"balance"`
+}
