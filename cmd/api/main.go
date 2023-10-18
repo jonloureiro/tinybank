@@ -3,12 +3,13 @@ package main
 import (
 	"net/http"
 
-	accountsFactory "github.com/jonloureiro/tiny-bank/internal/accounts/gateways/factories"
+	accountfactory "github.com/jonloureiro/tinybank/internal/account/factory"
 )
 
 func main() {
-	accountsRoutes := accountsFactory.AccountsFactory()
-	if err := http.ListenAndServe(":3000", accountsRoutes.Setup()); err != nil {
+	accountHandler := accountfactory.HTTPHandler()
+
+	if err := http.ListenAndServe(":3000", accountHandler); err != nil {
 		panic(err)
 	}
 }

@@ -1,6 +1,6 @@
 package usecases
 
-import "github.com/jonloureiro/tiny-bank/legacy/app/usecases/repositories"
+import "github.com/jonloureiro/tinybank/legacy/app/usecases/repositories"
 
 type TinyBankUseCases struct {
 	PrivateKey string

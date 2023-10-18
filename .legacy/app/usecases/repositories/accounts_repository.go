@@ -1,9 +1,9 @@
 package repositories
 
 import (
-	"github.com/jonloureiro/tiny-bank/legacy/app/entities"
-	"github.com/jonloureiro/tiny-bank/legacy/app/vo"
-	"github.com/jonloureiro/tiny-bank/legacy/extensions/id"
+	"github.com/jonloureiro/tinybank/legacy/app/entities"
+	"github.com/jonloureiro/tinybank/legacy/app/vo"
+	"github.com/jonloureiro/tinybank/legacy/extensions/id"
 )
 
 type AccountsRepository interface {

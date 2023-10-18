@@ -1,8 +1,8 @@
 package usecases
 
 import (
-	"github.com/jonloureiro/tiny-bank/legacy/app/vo"
-	"github.com/jonloureiro/tiny-bank/legacy/extensions/jwt"
+	"github.com/jonloureiro/tinybank/legacy/app/vo"
+	"github.com/jonloureiro/tinybank/legacy/extensions/jwt"
 )
 
 type AuthenticateAccountInput struct {

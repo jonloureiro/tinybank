@@ -4,9 +4,9 @@ import (
 	"errors"
 	"time"
 
-	"github.com/jonloureiro/tiny-bank/legacy/app/vo"
-	"github.com/jonloureiro/tiny-bank/legacy/extensions/id"
-	"github.com/jonloureiro/tiny-bank/legacy/extensions/jwt"
+	"github.com/jonloureiro/tinybank/legacy/app/vo"
+	"github.com/jonloureiro/tinybank/legacy/extensions/id"
+	"github.com/jonloureiro/tinybank/legacy/extensions/jwt"
 )
 
 var (

@@ -3,7 +3,7 @@ package vo_test
 import (
 	"testing"
 
-	"github.com/jonloureiro/tiny-bank/legacy/app/vo"
+	"github.com/jonloureiro/tinybank/legacy/app/vo"
 )
 
 func TestCPF(t *testing.T) {

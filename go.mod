@@ -1,4 +1,4 @@
-module github.com/jonloureiro/tiny-bank
+module github.com/jonloureiro/tinybank
 
 go 1.21.1
 

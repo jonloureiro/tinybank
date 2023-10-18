@@ -3,10 +3,10 @@ package usecases_test
 import (
 	"testing"
 
-	"github.com/jonloureiro/tiny-bank/legacy/app/entities"
-	"github.com/jonloureiro/tiny-bank/legacy/app/usecases"
-	"github.com/jonloureiro/tiny-bank/legacy/app/usecases/repositories/mocks"
-	"github.com/jonloureiro/tiny-bank/legacy/app/vo"
+	"github.com/jonloureiro/tinybank/legacy/app/entities"
+	"github.com/jonloureiro/tinybank/legacy/app/usecases"
+	"github.com/jonloureiro/tinybank/legacy/app/usecases/repositories/mocks"
+	"github.com/jonloureiro/tinybank/legacy/app/vo"
 )
 
 func TestListAccounts(t *testing.T) {

@@ -3,7 +3,7 @@ package id_test
 import (
 	"testing"
 
-	"github.com/jonloureiro/tiny-bank/legacy/extensions/id"
+	"github.com/jonloureiro/tinybank/legacy/extensions/id"
 )
 
 func TestNewID(t *testing.T) {
